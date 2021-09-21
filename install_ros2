@@ -1,0 +1,22 @@
+echo "我是小鱼，现在为您安装ROS2，如安装过程中遇到问题，欢迎关注微信公众号《鱼香ROS》，加入鱼群交流"
+echo "现在小鱼开始为您导入秘钥"
+sudo curl -sSL https://ghproxy.com/https://raw.githubusercontent.com/ros/rosdistro/master/ros.key  -o /usr/share/keyrings/ros-archive-keyring.gpg
+sudo rm -f /etc/apt/sources.list.d/ros2*
+echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/ros-archive-keyring.gpg] https://mirrors.tuna.tsinghua.edu.cn/ros2/ubuntu/ $(lsb_release -cs) main" | sudo tee /etc/apt/sources.list.d/ros2.list > /dev/null
+echo "小鱼提示：导入完成，现在开始更新源"
+sudo apt-get update
+echo "现在开始正式安装，如失败您可以再试尝试运行本命令"
+sudo apt-get install ros-foxy-desktop -y
+if [ $? -ne 0 ];then
+  echo "检测到您安装过程中遇到问题，正在为您二次尝试...."
+  sudo apt-get update
+  sudo apt-get install ros-foxy-desktop -y --fix-missing
+fi
+echo "小鱼提示：已完成安装ROS2，正在检查环境..."
+sudo cat ~/.bashrc | grep foxy/setup.bash
+if [ $? -ne 0 ];then
+  echo "小鱼提示：正在为您添加环境设置...."
+  echo "source /opt/ros/foxy/setup.bash" >> ~/.bashrc; 
+fi
+source /opt/ros/foxy/setup.bash
+echo "小鱼提示：已为您完成所有操作，如果失败了请重新尝试或关注《鱼香ROS》加入鱼群"
