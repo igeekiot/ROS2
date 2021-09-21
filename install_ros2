@@ -20,3 +20,5 @@ if [ $? -ne 0 ];then
 fi
 source /opt/ros/foxy/setup.bash
 echo "极客星球提示：已为您完成所有操作，如安装过程中遇到问题，到bbs.igeekiot.com交流"
+sudo apt install python3-argcomplete
+echo "全部安装完成！！！"
